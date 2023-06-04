@@ -318,14 +318,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (CollectionUtils.isEmpty(tagNameList)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        // QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // // 拼接 and 查询
+        // // like '%Java%' and like '%Python%'
+        // for (String tagName : tagNameList) {
+        //     queryWrapper = queryWrapper.like("tags", tagName);
+        // }
+        // List<User> userList = userMapper.selectList(queryWrapper);
+        // return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
+
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        // 拼接 and 查询
-        // like '%Java%' and like '%Python%'
-        for (String tagName : tagNameList) {
-            queryWrapper = queryWrapper.like("tags", tagName);
-        }
-        List<User> userList = userMapper.selectList(queryWrapper);
-        return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
+        List<User> users = userMapper.selectList(queryWrapper);
+        Gson gson = new Gson();
+
+        return users.stream().filter(user -> {
+            String tags = user.getTags();
+            if (StringUtils.isBlank(tags)) {
+                return false;
+            }
+            Set<String> tagsSet = gson.fromJson(tags, new TypeToken<Set<String>>() {
+            }.getType());
+            for (String s : tagsSet) {
+                if (!tagNameList.contains(s)) {
+                    return false;
+                }
+            }
+            return true;
+        }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
 }

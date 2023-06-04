@@ -17,13 +17,14 @@ public class ImportExcel {
     public static void main(String[] args) {
         // 写法1：JDK8+
         // since: 3.0.0-beta1
-        String fileName = "E:\\星球项目\\yupao-backend\\src\\main\\resources\\testExcel.xlsx";
-//        readByListener(fileName);
-        synchronousRead(fileName);
+        String fileName = "D:\\java\\project\\yupao\\yupao-backend\\src\\main\\resources\\testExcel.xlsx";
+        readByListener(fileName);
+        // synchronousRead(fileName);
     }
 
     /**
      * 监听器读取
+     *
      * @param fileName
      */
     public static void readByListener(String fileName) {
@@ -31,7 +32,8 @@ public class ImportExcel {
     }
 
     /**
-     * 同步读
+     * 同步读 不推荐使用
+     *
      * @param fileName
      */
     public static void synchronousRead(String fileName) {
