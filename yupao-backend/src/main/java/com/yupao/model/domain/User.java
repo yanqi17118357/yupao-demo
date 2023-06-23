@@ -17,7 +17,7 @@ public class User implements Serializable {
      * id
      */
     @TableId(type = IdType.AUTO)
-    private long id;
+    transient private Long id;
 
     /**
      * 用户昵称
@@ -70,7 +70,7 @@ public class User implements Serializable {
     private Date createTime;
 
     /**
-     * 
+     *
      */
     private Date updateTime;
 

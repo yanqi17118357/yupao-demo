@@ -116,6 +116,14 @@ public class UserController {
         return ResultUtils.success(userList);
     }
 
+    @GetMapping("/recommend2")
+    public BaseResponse<List<User>> recommendUsersTest(HttpServletRequest request) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        List<User> userList = userService.list(queryWrapper);
+        List<User> collect = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
+        return ResultUtils.success(collect);
+    }
+
     // todo 推荐多个，未实现
     @GetMapping("/recommend")
     public BaseResponse<Page<User>> recommendUsers(long pageSize, long pageNum, HttpServletRequest request) {

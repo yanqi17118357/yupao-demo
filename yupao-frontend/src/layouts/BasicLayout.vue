@@ -9,8 +9,9 @@
             <van-icon name="search" size="18"/>
         </template>
     </van-nav-bar>
+    <!-- 公共布局，根据路由获取当前页面内容 -->
     <div id="content">
-        <router-view/>
+        <router-view />
     </div>
     <van-tabbar route>
         <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
@@ -34,5 +35,7 @@ const onChangeRight = () => {
 </script>
 
 <style scoped>
-
+#content{
+    padding-bottom: 50px;
+}
 </style>

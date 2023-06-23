@@ -16,6 +16,8 @@ public class InsertUsersTest {
     @Resource
     private UserService userService;
 
+    // CPU 密集型：分配的核心线程数 = CPU - 1
+    // IO 密集型：分配的核心线程数可以大于 CPU 核数
     private ExecutorService executorService = new ThreadPoolExecutor(40, 1000, 10000, TimeUnit.MINUTES, new ArrayBlockingQueue<>(10000));
 
     /**
@@ -55,11 +57,11 @@ public class InsertUsersTest {
     public void doConcurrencyInsertUsers() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        // 分十组
+        // 分20组，每组5000条
         int batchSize = 5000;
         int j = 0;
         List<CompletableFuture<Void>> futureList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             List<User> userList = new ArrayList<>();
             while(true) {
                 j++;

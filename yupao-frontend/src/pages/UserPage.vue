@@ -1,6 +1,6 @@
 <template>
     <template v-if="user">
-        <van-cell title="用户名" is-link to="/user/edit" :value="user.username"/>
+        <van-cell title="用户名" is-link to="/user/edit" :value="user.username" @click="toEdit('username','用户名',user.username)"/>
         <van-cell title="账号" :value="user.userAccount" />
         <van-cell title="头像" is-link to="/user/edit">
             <img style="height: 48px" src="https://npm.elemecdn.com/yanqi1711-picx@1.0.11/img/me.webp" alt="头像">
@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import myAxios from "../plugins/myAxios.js";
+import myAxios from "../plugins/myAxios.ts";
 import {showFailToast, showSuccessToast} from "vant";
 
 // const user = {
@@ -37,7 +37,8 @@ onMounted(async () => {
     const res = await myAxios.get('user/current');
     if (res.code === 0) {
         user.value = res.data;
-        showSuccessToast('获取用户信息成功');
+        console.log();
+        // showSuccessToast('获取用户信息成功');
     }else {
         showFailToast('获取用户信息失败');
     }

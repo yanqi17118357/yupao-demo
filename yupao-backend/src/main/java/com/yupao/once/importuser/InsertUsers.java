@@ -2,6 +2,7 @@ package com.yupao.once.importuser;
 
 import com.yupao.mapper.UserMapper;
 import com.yupao.model.domain.User;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -16,7 +17,7 @@ public class InsertUsers {
     /**
      * 批量插入用户
      */
-//    @Scheduled(initialDelay = 5000, fixedRate = Long.MAX_VALUE)
+    // @Scheduled(initialDelay = 5000, fixedRate = Long.MAX_VALUE)
     public void doInsertUsers() {
         StopWatch stopWatch = new StopWatch();
         System.out.println("goodgoodgood");
@@ -24,8 +25,8 @@ public class InsertUsers {
         final int INSERT_NUM = 1000;
         for (int i = 0; i < INSERT_NUM; i++) {
             User user = new User();
-            user.setUsername("假鱼皮");
-            user.setUserAccount("fakeyupi");
+            user.setUsername("假用户");
+            user.setUserAccount("");
             user.setAvatarUrl("https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/logo.png");
             user.setGender(0);
             user.setUserPassword("12345678");
@@ -35,9 +36,10 @@ public class InsertUsers {
             user.setUserStatus(0);
             user.setUserRole(0);
             user.setPlanetCode("11111111");
-            userMapper.insert(user);
+            // userMapper.insert(user);
         }
         stopWatch.stop();
         System.out.println(stopWatch.getTotalTimeMillis());
     }
+
 }
